@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>আপনার এক্সক্লুসিভ জগতের প্রবেশদ্বার</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"/>
+  <style>
+    :root {
+      --primary: #e2136e; --secondary: #f39223; --success: #1db954; --error: #d93025;
+      --text-light: #fff; --text-dark: #c0c0c0; --bg-main: #000;
+      --bg-glass: rgba(18, 18, 18, 0.75);
+      --accent: #4a90e2;
+    }
+    #bg-video {
+        position: fixed; right: 0; bottom: 0;
+        min-width: 100%; min-height: 100%;
+        z-index: -1; filter: blur(8px) brightness(0.4);
+        transform: scale(1.1);
+    }
+    body {
+      font-family: 'Hind Siliguri', sans-serif; display: flex; align-items: center; justify-content: center;
+      min-height: 100vh; margin: 0; padding: 40px 0; box-sizing: border-box;
+      color: var(--text-light); background-color: var(--bg-main);
+      overflow-x: hidden; 
+    }
+    .container {
+      text-align: center; background: var(--bg-glass); padding: 40px; border-radius: 20px;
+      backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+      max-width: 600px; width: 95%; position: relative;
+    }
+    h1 { font-size: 2.4em; font-weight: 700; margin-bottom: 10px; line-height: 1.2; text-shadow: 0 0 20px rgba(226, 19, 110, 0.6); min-height: 1.2em; }
+    .typing-cursor { display: inline-block; width: 3px; background-color: white; animation: blink 1s step-end infinite; }
+    @keyframes blink { from, to { background-color: transparent } 50% { background-color: white; } }
+    
+    .tagline { color: var(--text-dark); font-size: 1.1em; margin-bottom: 25px; }
+
+    .offer-box {
+      background: rgba(226, 19, 110, 0.1); border: 2px solid var(--primary);
+      padding: 20px; border-radius: 15px; margin-bottom: 25px;
+      box-shadow: 0 0 20px rgba(226, 19, 110, 0.3);
+    }
+    .offer-title { font-size: 1.3em; font-weight: 600; color: var(--secondary); margin: 0 0 10px; }
+    .countdown-timer { display: flex; justify-content: center; gap: 15px; margin-bottom: 15px; }
+    .time-block { text-align: center; }
+    .time-value { font-size: 1.8em; font-weight: 700; color: var(--text-light); }
+    .time-label { font-size: 0.8em; color: var(--text-dark); }
+    .slots-left { font-size: 1.1em; color: #ffc107; font-weight: 600; margin-top: 15px; transition: color 0.3s ease; }
+    .slots-left #slots-count { animation: pulse 1.5s infinite; }
+    @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
+    .price-warning { margin-top: 10px; font-size: 0.9em; color: #ffc107; font-weight: 500;}
+    .price-warning strong { color: white; }
+
+    #testimonial-carousel {
+        background: rgba(0,0,0,0.2); padding: 20px; border-radius: 15px;
+        margin-bottom: 25px; min-height: 150px; display: flex; align-items: center;
+        transition: opacity 0.5s ease-in-out;
+    }
+    .testimonial-card { width: 100%; text-align: left; }
+    .testimonial-header { display: flex; align-items: center; gap: 15px; margin-bottom: 10px; }
+    .profile-pic { width: 50px; height: 50px; border-radius: 50%; border: 2px solid var(--primary); object-fit: cover; }
+    .user-info h4 { margin: 0; } .user-info p { margin: 0; font-size: 0.8em; color: var(--text-dark); }
+    .verified-badge { background-color: var(--success); color: white; font-size: 0.7em; padding: 2px 6px; border-radius: 5px; margin-left: 8px; font-weight: 500;}
+    .testimonial-comment { font-style: italic; color: #e0e0e0; }
+
+    .features-heading { font-size: 1.5em; font-weight: 600; margin-top: 40px; margin-bottom: 20px; }
+    .feature-list { text-align: left; margin: 25px 0; }
+    .feature-item {
+        background: rgba(255,255,255,0.05); padding: 15px; border-radius: 10px;
+        margin-bottom: 10px; display: flex; align-items: center; gap: 15px;
+        transition: transform 0.3s, background 0.3s;
+    }
+    .feature-item:hover { transform: scale(1.03); background: rgba(255,255,255,0.1); }
+    .feature-icon { font-size: 1.5em; color: var(--primary); width: 40px; text-align: center; }
+    .feature-text h4 { margin: 0; } .feature-text p { margin: 5px 0 0; font-size: 0.9em; color: var(--text-dark); }
+    
+    .guarantee-box {
+        background: rgba(243, 146, 35, 0.1); border: 1px solid var(--secondary);
+        padding: 20px; border-radius: 15px; margin-top: 30px; text-align: left;
+        display: flex; align-items: center; gap: 20px;
+    }
+    .guarantee-icon { font-size: 2em; color: var(--secondary); }
+    .guarantee-text h4 { margin: 0 0 5px 0; color: var(--secondary); }
+    .guarantee-text p { margin: 0; color: var(--text-dark); font-size: 0.9em; }
+
+    .custom-button {
+      color: var(--text-light); border: none; padding: 14px 30px; border-radius: 50px;
+      cursor: pointer; font-size: 1.1em; font-weight: 700; margin: 10px;
+      transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 10px;
+      text-transform: uppercase; letter-spacing: 1px; position: relative; overflow: hidden;
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+      text-decoration: none; /* Add this to remove underline on links */
+    }
+    .custom-button:hover {
+      transform: translateY(-4px) scale(1.07);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+    }
+    .custom-button::before {
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%;
+      background: linear-gradient(120deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      animation: shine 2s infinite;
+    }
+    @keyframes shine {
+      0% { left: -100%; }
+      20% { left: 100%; }
+      100% { left: 100%; }
+    }
+    .bkash-btn {
+      background: linear-gradient(45deg, #e2136e, #ff5b9e);
+      border: 2px solid #ff5b9e;
+    }
+    .bkash-btn:hover {
+      background: linear-gradient(45deg, #ff5b9e, #e2136e);
+    }
+    .nagad-btn {
+      background: linear-gradient(45deg, #f39223, #ffb969);
+      border: 2px solid #ffb969;
+    }
+    .nagad-btn:hover {
+      background: linear-gradient(45deg, #ffb969, #f39223);
+    }
+    .custom-button i { transition: transform 0.3s ease; }
+    .custom-button:hover i { transform: translateX(5px); }
+    
+    .faq-section { margin-top: 30px; }
+    .faq-item { background: rgba(255,255,255,0.05); border-radius: 10px; margin-bottom: 10px; text-align: left; }
+    .faq-question { padding: 15px; font-weight: 600; cursor: pointer; display: flex; justify-content: space-between; align-items: center; }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; background: rgba(0,0,0,0.2); border-bottom-left-radius: 10px; border-bottom-right-radius: 10px; }
+    .faq-answer p { padding: 0 15px 15px; margin: 0; color: var(--text-dark); }
+    .faq-item.active .faq-answer { max-height: 150px; }
+    .faq-item.active .faq-question i { transform: rotate(180deg); }
+    .faq-question i { transition: transform 0.3s; }
+
+    #instruction-box { font-size: 16px; color: #fff; background-color: rgba(0,0,0,0.2); padding: 20px; border-radius: 10px; margin: 25px 0; border: 1px solid var(--primary); }
+    .number-wrapper { display: flex; align-items: center; justify-content: center; gap: 10px; margin: 10px 0; font-size: 18px; font-weight: 600; }
+    .copy-btn { background-color: rgba(255,255,255,0.2); color: white; border: 1px solid white; padding: 5px 10px; border-radius: 5px; cursor: pointer; }
+
+    #upload-area { text-align: center; padding: 40px 20px; border: 2px dashed rgba(255,255,255,0.5); border-radius: 15px; cursor: pointer; transition: all 0.3s ease; }
+    #upload-area.drag-over { background-color: rgba(255,255,255,0.1); border-style: solid; }
+
+    #preview { max-width: 100%; max-height: 250px; margin-top: 20px; border-radius: 15px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); }
+    #progress-container { margin-top: 20px; }
+    #progress-container p { color: #fff; margin-bottom: 10px; }
+    #progress-bar { width: 0%; height: 8px; background: linear-gradient(90deg, #ffb969, #e2136e); border-radius: 4px; transition: width 0.3s ease; }
+    .progress-wrapper { width: 100%; background-color: rgba(0,0,0,0.3); border-radius: 4px; overflow: hidden; }
+    
+    .debug-details { margin-top: 20px; text-align: left; background: rgba(0,0,0,0.3); padding: 15px; border-radius: 10px; }
+    .debug-details summary { cursor: pointer; font-weight: 500; color: var(--secondary); }
+    .debug-details pre { white-space: pre-wrap; word-wrap: break-word; background: #000; padding: 10px; border-radius: 5px; color: #ddd; max-height: 150px; overflow-y: auto; font-size: 12px; margin-top: 10px; }
+    
+    .toast { position: fixed; bottom: -100px; left: 50%; transform: translateX(-50%); background-color: var(--success); color: white; padding: 12px 25px; border-radius: 50px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); transition: all 0.4s ease; opacity: 0; visibility: hidden; z-index: 9999; }
+    .toast.show { bottom: 20px; opacity: 1; visibility: visible; }
+
+    .live-activity {
+        position: fixed;
+        bottom: 20px;
+        left: 20px;
+        background: var(--bg-glass);
+        padding: 10px 15px;
+        border-radius: 10px;
+        backdrop-filter: blur(5px);
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        z-index: 9998;
+        transform: translateX(-120%);
+        opacity: 0;
+        transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+    }
+    .live-activity.show {
+        transform: translateX(0);
+        opacity: 1;
+    }
+    .live-activity i { color: var(--primary); }
+
+    .hidden { display: none; }
+    canvas { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; pointer-events: none; }
+
+    .highlight { color: var(--accent); font-weight: bold; }
+    #chat-support { position: fixed; bottom: 80px; right: 20px; background: var(--primary); color: white; padding: 15px; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.3); cursor: pointer; z-index: 9999; animation: bounce 2s infinite; }
+    @keyframes bounce { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-10px); } }
+
+    .content-counter { font-size: 1.2em; color: var(--success); margin-top: 20px; animation: counter-pulse 2s infinite; }
+    @keyframes counter-pulse { 0% { opacity: 1; } 50% { opacity: 0.7; } 100% { opacity: 1; } }
+
+    .security-badges { display: flex; justify-content: center; gap: 20px; margin-top: 20px; }
+    .security-badges i { font-size: 2em; color: var(--success); animation: badge-glow 3s infinite; }
+    @keyframes badge-glow { 50% { text-shadow: 0 0 10px var(--success); } }
+
+    .bonus-section { margin-top: 40px; background: rgba(226, 19, 110, 0.1); padding: 20px; border-radius: 15px; border: 2px dashed var(--primary); animation: bonus-glow 3s infinite; }
+    .bonus-section h3 { color: var(--secondary); font-size: 1.4em; margin-bottom: 15px; }
+    .bonus-section p { font-size: 1em; color: var(--text-light); }
+    @keyframes bonus-glow { 50% { box-shadow: 0 0 20px rgba(226, 19, 110, 0.5); } }
+
+    /* Referral System Styles */
+    .referral-section { margin-top: 40px; background: rgba(243, 146, 35, 0.1); padding: 20px; border-radius: 15px; border: 2px solid var(--secondary); }
+    .referral-section h3 { color: var(--secondary); font-size: 1.4em; margin-bottom: 15px; }
+    .referral-link { background: rgba(0,0,0,0.2); padding: 10px; border-radius: 10px; word-break: break-all; margin-bottom: 10px; }
+    .referral-balance { font-size: 1.2em; color: var(--success); margin-bottom: 15px; }
+    .withdraw-btn { background: linear-gradient(45deg, #1db954, #4caf50); border: 2px solid #4caf50; }
+    .withdraw-btn:hover { background: linear-gradient(45deg, #4caf50, #1db954); }
+    .referral-form { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .referral-input { padding: 10px; border-radius: 5px; border: 1px solid var(--text-dark); background: rgba(255,255,255,0.1); color: white; }
+    #referral-login { margin-top: 10px; }
+  </style>
+</head>
+<body>
+  <video autoplay muted loop id="bg-video">
+    <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-video-of-a-dark-sphere-with-liquid-surface-30947-large.mp4" type="video/mp4">
+  </video>
+
+  <div class="container">
+    <canvas id="confetti-canvas"></canvas>
+    <audio id="success-sound" src="https://cdn.pixabay.com/audio/2022/11/17/audio_8355283b4b.mp3"></audio>
+    
+    <div id="main-content">
+      <h1 id="headline">মাত্র 50 টাকায় এখনই জয়েন করুন প্রিমিয়াম গ্রুপে</h1>
+      <p class="tagline">সাধারণের ভিড় থেকে বেরিয়ে আসুন। এখানে তারাই আমন্ত্রিত, যারা সেরাটাই উপভোগ করতে জানে। <span class="highlight">আজই জয়েন করুন এবং অসীম আনন্দের জগতে প্রবেশ করুন!</span></p>
+
+      <div class="offer-box">
+        <div class="offer-title">🔥 এই বিশেষ অফার শুধু আপনার জন্য ! সময় সীমিত!</div>
+        <div class="countdown-timer">
+          <div class="time-block"><div id="days" class="time-value">00</div><div class="time-label">দিন</div></div>
+          <div class="time-block"><div id="hours" class="time-value">00</div><div class="time-label">ঘণ্টা</div></div>
+          <div class="time-block"><div id="minutes" class="time-value">00</div><div class="time-label">মিনিট</div></div>
+          <div class="time-block"><div id="seconds" class="time-value">00</div><div class="time-label">সেকেন্ড</div></div>
+        </div>
+        <div class="slots-left">
+          ⚡️ আর মাত্র <span id="slots-count">27</span> জন জয়েন বাকি আছে অফার শেষ হতে !
+        </div>
+        <p class="price-warning">অফার শেষ হলেই মূল্য বেড়ে <strong>২৫০ টাকা</strong> হবে। সুযোগটি হাতছাড়া করবেন না! <span class="highlight">আজই সেভ করুন ২০০ টাকা!</span></p>
+      </div>
+
+      <div id="selection-area">
+        <button class="custom-button bkash-btn" onclick="selectMethod('bkash')"><i class="fas fa-lock-open"></i> দেরি কেনো এখনই জয়েন করুন (বিকাশ)</button>
+        <button class="custom-button nagad-btn" onclick="selectMethod('nagad')"><i class="fas fa-lock-open"></i> দেরি কেনো এখনই জয়েন করুন (নগদ)</button>
+      </div>
+      
+      <h3 class="features-heading">এখানে কী কী পাচ্ছেন?</h3>
+      <div class="feature-list">
+        <div class="feature-item"><div class="feature-icon"><i class="fas fa-infinity"></i></div><div class="feature-text"><h4>সীমা ছাড়ানো কন্টেন্ট ওয়ার্ল্ড</h4><p>২০,০০০+ আনকাট ও এক্সক্লুসিভ ভিডিওর এক বিশাল সংগ্রহ, যা আর কোথাও পাবেন না।</p></div></div>
+        <div class="feature-item"><div class="feature-icon"><i class="fas fa-bolt"></i></div><div class="feature-text"><h4>প্রতিদিনের রুদ্ধশ্বাস আপডেট</h4><p>বিরক্তির কোনো সুযোগ নেই, প্রতিদিন যোগ হয় আপনার পছন্দের নতুন নতুন কন্টেন্ট।</p></div></div>
+        <div class="feature-item"><div class="feature-icon"><i class="fas fa-eye-slash"></i></div><div class="feature-text"><h4>নিরবিচ্ছিন্ন বিনোদন</h4><p>কোনো বিরক্তিকর বিজ্ঞাপন ছাড়াই উপভোগ করুন আপনার সেরা মুহূর্তগুলো, একেবারে বাধাহীন।</p></div></div>
+        <div class="feature-item"><div class="feature-icon"><i class="fas fa-user-shield"></i></div><div class="feature-text"><h4>২৪/৭ ভিআইপি সাপোর্ট</h4><p>যেকোনো প্রয়োজনে আমাদের সাপোর্ট টিম সবসময় আপনার পাশে আছে বন্ধুর মতো।</p></div></div>
+        <div class="feature-item"><div class="feature-icon"><i class="fas fa-gift"></i></div><div class="feature-text"><h4>বোনাস সারপ্রাইজ গিফট</h4><p>জয়েন করার পর পান এক্সট্রা এক্সক্লুসিভ কন্টেন্ট প্যাকেজ ফ্রি!</p></div></div>
+      </div>
+      
+      <div class="guarantee-box">
+        <div class="guarantee-icon"><i class="fas fa-hand-holding-heart"></i></div>
+        <div class="guarantee-text">
+            <h4>আমাদের সন্তুষ্টির নিশ্চয়তা</h4>
+            <p>আমরা আমাদের সেবার মানের ব্যাপারে আত্মবিশ্বাসী। যদি কোনো কারণে আপনি সন্তুষ্ট না হন, আমরা আপনার সমস্যা সমাধানে সর্বদা প্রস্তুত। আপনার আনন্দই আমাদের সাফল্য।</p>
+        </div>
+      </div>
+
+      <div class="bonus-section">
+        <h3>লিমিটেড টাইম বোনাস!</h3>
+        <p>আজই জয়েন করলে পান অতিরিক্ত ৫০০+ এক্সক্লুসিভ ভিডিও ফ্রি! এই অফার শুধুমাত্র প্রথম ১০০ জনের জন্য। দেরি করবেন না!</p>
+      </div>
+
+      <p class="content-counter">বর্তমানে <span id="content-count">20000</span>+ ভিডিও উপলব্ধ এবং প্রতিদিন বাড়ছে!</p>
+
+      <div class="security-badges">
+        <i class="fas fa-lock" title="সুরক্ষিত পেমেন্ট"></i>
+        <i class="fas fa-shield-alt" title="গোপনীয়তা নিশ্চিত"></i>
+        <i class="fas fa-check-circle" title="ভেরিফাইড সার্ভিস"></i>
+      </div>
+
+      <p style="margin-top: 30px; color: var(--text-dark);">এই মুহূর্তে <strong id="member-count" style="color:white; font-weight:700;">738</strong> জন প্রিমিয়াম সদস্য আমাদের সাথে আছেন...</p>
+      <div id="testimonial-carousel"></div>
+
+      <div class="faq-section">
+         <h3 class="features-heading" style="margin-top:40px;">সচরাচর জিজ্ঞাসিত প্রশ্নাবলী</h3>
+         <div class="faq-item">
+            <div class="faq-question">এটি কি ওয়ান-টাইম পেমেন্ট? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-answer"><p>হ্যাঁ, এটি সম্পূর্ণ ওয়ান-টাইম পেমেন্ট। একবার পেমেন্ট করলে আপনি লাইফটাইম অ্যাক্সেস পাবেন। কোনো মাসিক বা বাৎসরিক চার্জ নেই।</p></div>
+         </div>
+         <div class="faq-item">
+            <div class="faq-question">আমার তথ্য কি সুরক্ষিত থাকবে? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-answer"><p>আপনার গোপনীয়তা আমাদের কাছে সর্বোচ্চ গুরুত্বপূর্ণ। আপনার দেওয়া কোনো তথ্যই আমরা সংরক্ষণ করি না বা কারও সাথে শেয়ার করি না। আপনার পরিচয় সম্পূর্ণ গোপন থাকবে।</p></div>
+         </div>
+          <div class="faq-item">
+            <div class="faq-question">পেমেন্টের পর কী হবে? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-answer"><p>আপনার পেমেন্টের প্রমাণ যাচাই করার সাথে সাথেই আপনি একটি বিশেষ লিংক পাবেন, যেটিতে ক্লিক করে আপনি সরাসরি আমাদের এক্সক্লুসিভ টেলিগ্রাম চ্যানেলে যোগ দিতে পারবেন।</p></div>
+         </div>
+         <div class="faq-item">
+            <div class="faq-question">ভেরিফিকেশন হতে কতক্ষণ লাগে? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-answer"><p>সাধারণত, আমরা ৫-১০ মিনিটের মধ্যেই আপনার পেমেন্টের প্রমাণ যাচাই করে ফেলি। তবে মাঝে মাঝে অতিরিক্ত চাপের কারণে সর্বোচ্চ ৩০ মিনিট পর্যন্ত সময় লাগতে পারে।</p></div>
+         </div>
+         <div class="faq-item">
+            <div class="faq-question">বোনাস অফার কীভাবে পাব? <i class="fas fa-chevron-down"></i></div>
+            <div class="faq-answer"><p>জয়েন করার পর আমাদের সাপোর্ট টিম আপনাকে বোনাস কন্টেন্ট লিংক পাঠাবে। এটি শুধুমাত্র লিমিটেড টাইমের জন্য উপলব্ধ।</p></div>
+         </div>
+      </div>
+
+      <!-- Referral Section -->
+      <div class="referral-section" id="referral-section">
+        <h3>রেফারেল সিস্টেম: বন্ধুকে রেফার করে ইনকাম করুন!</h3>
+        <p>আপনার রেফারেল লিংক শেয়ার করুন। কেউ আপনার লিংক দিয়ে জয়েন করলে আপনি ২০ টাকা পাবেন। মিনিমাম ২০ টাকা হলে বিকাশে উইথড্র করতে পারবেন।</p>
+        <div id="referral-content">
+          <p class="referral-balance">আপনার ব্যালেন্স: <span id="referral-balance">০</span> টাকা</p>
+          <div class="referral-link">আপনার রেফারেল লিংক: <span id="referral-link"></span></div>
+          <button class="custom-button copy-btn" onclick="copyReferralLink()"><i class="fa-regular fa-copy"></i> লিংক কপি করুন</button>
+          <button class="custom-button withdraw-btn" onclick="withdrawBalance()" id="withdraw-btn" disabled><i class="fas fa-wallet"></i> উইথড্র করুন</button>
+        </div>
+        <div class="referral-form" id="referral-login-form">
+          <input type="text" class="referral-input" id="user-name" placeholder="আপনার নাম দিন" required>
+          <input type="text" class="referral-input" id="user-bkash" placeholder="আপনার বিকাশ নম্বর দিন" required>
+          <button class="custom-button" id="referral-login">লগইন/রেজিস্টার করুন</button>
+        </div>
+      </div>
+
+    </div>
+    
+    <div id="upload-container" class="hidden"></div>
+    <img id="preview" class="hidden" alt="পেমেন্ট স্ক্রিনশটের প্রিভিউ">
+    <div id="progress-container" class="hidden"></div>
+    <div id="result-area" class="hidden"></div>
+    <input type="file" id="mediaPicker" class="hidden" onchange="handleFileSelect(event)">
+    <div id="toast" class="toast"></div>
+    <div id="live-activity-popup" class="live-activity"><i class="fas fa-check-circle"></i><span id="live-activity-text"></span></div>
+    
+    <div id="chat-support" onclick="openChat()"><i class="fas fa-comment-dots"></i></div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+  <script src="https://unpkg.com/tesseract.js@4.0.2/dist/tesseract.min.js"></script>
+  <script>
+    const config = {
+        paymentDetails: {
+            bkash: { name: 'বিকাশ', number: '01332006920', amount: '50' },
+            nagad: { name: 'নগদ', number: '01332006920', amount: '50' }
+        },
+        telegramLink: 'https://t.me/+AZJraJUutVZmYjc1'
+    };
+    
+    const testimonials = [
+        { pic: 'https://i.pravatar.cc/50?img=5', name: 'রিয়াদ খান', comment: '“এটা শুধু একটা গ্রুপ না, একটা নেশা। একবার ঢুকলে আর বের হতে পারবেন না। Highly recommended!”'},
+        { pic: 'https://i.pravatar.cc/50?img=6', name: 'আফরিন সুলতানা', comment: '“সারাদিনের ক্লান্তি শেষে এই গ্রুপটাই আমার একমাত্র শান্তির জায়গা। প্রতিটি পয়সা উসুল।”'},
+        { pic: 'https://i.pravatar.cc/50?img=7', name: 'ইমরান হোসাইন', comment: '“অ্যাডমিনদের কাজের প্রশংসা করতেই হয়। সব সময় সেরা এবং নতুন জিনিস দেন। অসাধারণ!”'},
+        { pic: 'https://i.pravatar.cc/50?img=8', name: 'নাফিসা আনজুম', comment: '“আমার বয়ফ্রেন্ড আমাকে এই গ্রুপের কথা বলেছিল। এখন আমরা দুজনেই এটার ফ্যান! সেরা বিনোদন।”'},
+        { pic: 'https://i.pravatar.cc/50?img=9', name: 'সাইফুল ইসলাম', comment: '“আমি অনেক গ্রুপে ছিলাম, কিন্তু এর মতো প্রফেশনাল এবং কোয়ালিটি কন্টেন্ট কোথাও পাইনি।”'},
+        { pic: 'https://i.pravatar.cc/50?img=10', name: 'ফারহান আহমেদ', comment: '“অসাধারণ কালেকশন! প্রতিদিন নতুন সারপ্রাইজ।”'},
+        { pic: 'https://i.pravatar.cc/50?img=11', name: 'সাদিয়া খাতুন', comment: '“এত সুন্দরভাবে সাজানো কন্টেন্ট! আমি আসক্ত হয়ে গেছি।”'},
+        { pic: 'https://i.pravatar.cc/50?img=12', name: 'রাহাত আলী', comment: '“সেরা বিনোদনের জায়গা! প্রতিদিন নতুন আনন্দ।”'},
+        { pic: 'https://i.pravatar.cc/50?img=13', name: 'মেহজাবিন চৌধুরী', comment: '“অনেক ধন্যবাদ এই অসাধারণ সার্ভিসের জন্য!”'},
+    ];
+
+    let currentTestimonialIndex = 0;
+    let selectedMethod = '';
+
+    const elements = {
+        mainContent: document.getElementById('main-content'),
+        uploadContainer: document.getElementById('upload-container'),
+        mediaPicker: document.getElementById('mediaPicker'),
+        preview: document.getElementById('preview'),
+        progressContainer: document.getElementById('progress-container'),
+        resultArea: document.getElementById('result-area'),
+        memberCount: document.getElementById('member-count'),
+        testimonialCarousel: document.getElementById('testimonial-carousel'),
+        toast: document.getElementById('toast'),
+        slotsCount: document.getElementById('slots-count'),
+        slotsLeft: document.querySelector('.slots-left'),
+        liveActivityPopup: document.getElementById('live-activity-popup'),
+        liveActivityText: document.getElementById('live-activity-text'),
+        contentCount: document.getElementById('content-count'),
+        referralContent: document.getElementById('referral-content'),
+        referralLoginForm: document.getElementById('referral-login-form'),
+        referralLink: document.getElementById('referral-link'),
+        referralBalance: document.getElementById('referral-balance'),
+        withdrawBtn: document.getElementById('withdraw-btn'),
+    };
+    
+    function startMemberCounter() {
+        let count = parseInt(elements.memberCount.textContent);
+        setInterval(() => {
+            count += Math.floor(Math.random() * 2) + 1;
+            elements.memberCount.textContent = count;
+        }, (Math.random() * 8000) + 7000);
+    }
+    
+    function updateSlotsCounter() {
+        let slots = parseInt(elements.slotsCount.textContent);
+        if (slots <= 5) return;
+        
+        const intervalId = setInterval(() => {
+            if (slots > 5) {
+                slots--;
+                elements.slotsCount.textContent = slots;
+                if (slots < 10) {
+                    elements.slotsLeft.style.color = 'var(--error)';
+                }
+            } else {
+                 clearInterval(intervalId);
+            }
+        }, (Math.random() * 25000) + 20000);
+    }
+    
+    function showLiveActivity() {
+        const cities = ['ঢাকা', 'চট্টগ্রাম', 'খুলনা', 'সিলেট', 'রাজশাহী', 'বরিশাল', 'ময়মনসিংহ', 'রংপুর', 'কুমিল্লা', 'গাজীপুর'];
+        const randomCity = cities[Math.floor(Math.random() * cities.length)];
+        
+        setTimeout(() => {
+            elements.liveActivityText.textContent = `কিছুক্ষণ আগে ${randomCity} থেকে একজন জয়েন করেছেন! 🎉`;
+            elements.liveActivityPopup.classList.add('show');
+            
+            setTimeout(() => {
+                elements.liveActivityPopup.classList.remove('show');
+            }, 5000);
+            
+            showLiveActivity();
+        }, (Math.random() * 15000) + 10000);
+    }
+
+    function showNextTestimonial() {
+        const testimonial = testimonials[currentTestimonialIndex];
+        elements.testimonialCarousel.style.opacity = 0;
+        setTimeout(() => {
+            elements.testimonialCarousel.innerHTML = `
+                <div class="testimonial-card">
+                    <div class="testimonial-header">
+                        <img src="${testimonial.pic}" class="profile-pic" alt="User ${testimonial.name}">
+                        <div class="user-info">
+                            <h4>${testimonial.name} <span class="verified-badge"><i class="fas fa-check"></i> ভেরিফাইড মেম্বার</span></h4>
+                            <p>${Math.floor(Math.random() * 50) + 10} মিনিট আগে</p>
+                        </div>
+                    </div>
+                    <p class="testimonial-comment">${testimonial.comment}</p>
+                </div>`;
+            elements.testimonialCarousel.style.opacity = 1;
+        }, 500);
+        currentTestimonialIndex = (currentTestimonialIndex + 1) % testimonials.length;
+    }
+    
+    function showToast(message) {
+        elements.toast.textContent = message;
+        elements.toast.classList.add('show');
+        setTimeout(() => elements.toast.classList.remove('show'), 3000);
+    }
+
+    function selectMethod(method) {
+        selectedMethod = method;
+        const details = config.paymentDetails[method];
+        elements.mainContent.classList.add('hidden');
+        elements.uploadContainer.innerHTML = `
+            <h2>আপনার গোপন চাবিটি তৈরি হচ্ছে...</h2>
+            <p class="tagline">আপনার সাহসিকতার জন্য অভিনন্দন! শেষ ধাপে আপনাকে স্বাগতম।</p>
+            <div id="instruction-box">
+                <p><i class="fas fa-shield-alt"></i> আপনার পেমেন্ট ১০০% সুরক্ষিত। নিচের নম্বরে <strong>${details.amount} টাকা</strong> Send Money করে প্রিমিয়াম গ্রুপের গোপন জগতের দরজা খুলুন:</p>
+                <div class="number-wrapper">
+                    <strong id="payment-number">${details.number}</strong>
+                    <button class="copy-btn"><i class="fa-regular fa-copy"></i> কপি করুন</button>
+                </div>
+                 <p style="font-size: 0.9em; text-align: center; color: var(--text-dark); margin-top: 10px;">এটি একটি পার্সোনাল নম্বর, অনুগ্রহ করে Send Money অপশন ব্যবহার করুন।</p>
+            </div>
+            <div id="upload-area">
+                <i class="fa-solid fa-cloud-arrow-up fa-2x"></i>
+                <p style="margin-top: 15px; margin-bottom: 0;">এখানে আপনার পেমেন্টের প্রমাণ (স্ক্রিনশট) দিন</p>
+                <p style="font-size: 0.8em; color: var(--text-dark); margin-top: 5px;">(Transaction ID সহ স্ক্রিনশট দিলে দ্রুত ভেরিফাই হবে)</p>
+            </div>`;
+        elements.uploadContainer.classList.remove('hidden');
+        
+        const uploadArea = elements.uploadContainer.querySelector('#upload-area');
+        uploadArea.addEventListener('click', () => elements.mediaPicker.click());
+        ['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+            uploadArea.addEventListener(eventName, e => { e.preventDefault(); e.stopPropagation(); }, false);
+        });
+        uploadArea.addEventListener('dragover', () => uploadArea.classList.add('drag-over'));
+        uploadArea.addEventListener('dragleave', () => uploadArea.classList.remove('drag-over'));
+        uploadArea.addEventListener('drop', (e) => {
+            uploadArea.classList.remove('drag-over');
+            handleFile(e.dataTransfer.files[0]);
+        });
+    }
+
+    document.addEventListener('click', function(e) {
+        const copyButton = e.target.closest('.copy-btn');
+        if (copyButton) {
+            const number = document.getElementById('payment-number').innerText;
+            navigator.clipboard.writeText(number).then(() => showToast('নম্বর সফলভাবে কপি হয়েছে!'));
+        }
+        
+        const faqQuestion = e.target.closest('.faq-question');
+        if (faqQuestion) {
+            const activeItem = document.querySelector('.faq-item.active');
+            if (activeItem && activeItem !== faqQuestion.parentElement) {
+                activeItem.classList.remove('active');
+            }
+            faqQuestion.parentElement.classList.toggle('active');
+        }
+    });
+
+    function handleFileSelect(event) { handleFile(event.target.files[0]); }
+
+    function handleFile(file) {
+        if (!file || !file.type.startsWith('image/')) {
+            alert('অনুগ্রহ করে শুধু ছবি (.jpg, .png) আপলোড করুন।'); return;
+        }
+        elements.uploadContainer.classList.add('hidden');
+        elements.preview.src = URL.createObjectURL(file);
+        elements.preview.classList.remove('hidden');
+        elements.progressContainer.innerHTML = `
+            <p id="progress-status">⏳ আপনার স্ক্রিনশটটি ভেরিফাই করা হচ্ছে...</p>
+            <div class="progress-wrapper"><div id="progress-bar"></div></div>`;
+        elements.progressContainer.classList.remove('hidden');
+        processImage(file);
+    }
+
+    function processImage(file) {
+        const progressBar = elements.progressContainer.querySelector('#progress-bar');
+        const progressStatus = elements.progressContainer.querySelector('#progress-status');
+        Tesseract.recognize(file, 'eng', {
+            logger: (m) => {
+                if (m.status === 'recognizing text' && progressBar && progressStatus) {
+                    const progress = Math.floor(m.progress * 100);
+                    progressBar.style.width = progress + '%';
+                    progressStatus.textContent = `তথ্য যাচাই করা হচ্ছে... ${progress}%`;
+                }
+            }
+        }).then(({ data: { text } }) => {
+            const details = config.paymentDetails[selectedMethod];
+            const textWithoutSpaces = text.replace(/[\s-]/g, '');
+            const numberToFind = details.number.replace(/[\s-]/g, '');
+            const amountToFind = details.amount;
+            const isNumberFound = textWithoutSpaces.includes(numberToFind);
+            const isAmountFound = text.includes(amountToFind) || text.includes(parseFloat(amountToFind).toFixed(2));
+            
+            let message = "আপনার দেওয়া তথ্যে গড়মিল পাওয়া গেছে। অনুগ্রহ করে সঠিক Transaction ID সহ স্ক্রিনশট আপলোড করুন।";
+            if (!isNumberFound) {
+                message = "স্ক্রিনশটে পেমেন্ট নম্বর খুঁজে পাওয়া যায়নি।";
+            } else if (!isAmountFound) {
+                message = "স্ক্রিনশটে পেমেন্টের পরিমাণ খুঁজে পাওয়া যায়নি।";
+            }
+            showResult(isNumberFound && isAmountFound, message, text);
+        }).catch((error) => {
+            console.error(error);
+            showResult(false, '❗ ছবি প্রসেস করতে সমস্যা হয়েছে। অনুগ্রহ করে আবার চেষ্টা করুন।', error.message);
+        });
+    }
+
+    function showResult(isSuccess, message = '', recognizedText = '') {
+        elements.mainContent.classList.add('hidden');
+        elements.uploadContainer.classList.add('hidden');
+        elements.preview.classList.add('hidden');
+        elements.progressContainer.classList.add('hidden');
+        elements.resultArea.classList.remove('hidden');
+
+        if (isSuccess) {
+            document.getElementById('success-sound').play().catch(e => console.log("Audio play failed"));
+            const myCanvas = document.getElementById('confetti-canvas');
+            const myConfetti = confetti.create(myCanvas, { resize: true, useWorker: true });
+            myConfetti({ particleCount: 200, spread: 160, origin: { y: 0.6 } });
+
+            // Referral credit on success
+            creditReferralIfAny();
+
+            elements.resultArea.innerHTML = `
+                <h2 style="color: var(--success);"><i class="fas fa-shield-halved fa-2x"></i></h2>
+                <h1>অ্যাক্সেস অনুমোদিত!</h1>
+                <p class="tagline">অভিনন্দন! আপনি এখন সেই অভিজাতদের একজন, যারা সেরাটাই উপভোগ করে। আপনার নতুন যাত্রা শুরু হোক।</p>
+                <a href="${config.telegramLink}" target="_blank" class="custom-button" style="background: var(--success); font-size: 1.2em; padding: 15px 30px; animation: button-glow 1.5s infinite;"><i class="fas fa-arrow-right"></i> এখনই গোপন কক্ষে প্রবেশ করুন</a>`;
+        } else {
+             elements.resultArea.innerHTML = `
+                <h2 style="color: var(--error);"><i class="fas fa-exclamation-triangle fa-2x"></i></h2>
+                <h1>অ্যাক্সেস প্রত্যাখ্যান করা হয়েছে</h1>
+                <p class="tagline">${message}</p>
+                <div class="debug-details">
+                    <details>
+                        <summary>কেন? বিস্তারিত দেখুন</summary>
+                        <pre>${recognizedText || 'ছবি থেকে কোনো লেখা পড়া যায়নি। আপনার স্ক্রিনশটটি সম্ভবত পরিষ্কার নয় অথবা Transaction ID দেখা যাচ্ছে না।'}</pre>
+                    </details>
+                </div>
+                <button class="custom-button" onclick="window.location.reload()" style="background: #6c757d; margin-top: 20px;"><i class="fas fa-redo"></i> আবার চেষ্টা করুন</button>`;
+        }
+    }
+    
+    function typeWriter(element, text, speed) {
+        let i = 0;
+        const originalText = text;
+        element.innerHTML = "";
+        
+        function type() {
+            if (i < originalText.length) {
+                element.innerHTML = originalText.substring(0, i + 1) + '<span class="typing-cursor"></span>';
+                i++;
+                setTimeout(type, speed);
+            } else {
+                 element.innerHTML = originalText;
+            }
+        }
+        type();
+    }
+
+    function startCountdown() {
+        let countDownDate;
+        const storedDate = localStorage.getItem('countDownDate');
+
+        if (storedDate && new Date(storedDate).getTime() > new Date().getTime()) {
+            countDownDate = new Date(storedDate).getTime();
+        } else {
+            countDownDate = new Date().getTime() + (24 * 60 * 60 * 1000);
+            localStorage.setItem('countDownDate', new Date(countDownDate));
+        }
+
+        const x = setInterval(function() {
+            const now = new Date().getTime();
+            const distance = countDownDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerText = days < 10 ? '0' + days : days;
+            document.getElementById("hours").innerText = hours < 10 ? '0' + hours : hours;
+            document.getElementById("minutes").innerText = minutes < 10 ? '0' + minutes : minutes;
+            document.getElementById("seconds").innerText = seconds < 10 ? '0' + seconds : seconds;
+
+            if (distance < 0) {
+                clearInterval(x);
+                document.querySelector(".offer-box").innerHTML = "<div class='offer-title' style='color: var(--error)'>বিশেষ অফারটি শেষ হয়ে গেছে!</div><p class='price-warning' style='color: white'>এখন জয়েন করতে ২৫০ টাকা লাগবে।</p>";
+                document.getElementById('selection-area').style.display = 'none';
+            }
+        }, 1000);
+    }
+
+    function startContentCounter() {
+        let count = parseInt(elements.contentCount.textContent);
+        setInterval(() => {
+            count += Math.floor(Math.random() * 5) + 1;
+            elements.contentCount.textContent = count;
+        }, (Math.random() * 120000) + 60000);
+    }
+
+    function openChat() {
+        alert('লাইভ চ্যাট সাপোর্ট শীঘ্রই চালু হবে! এখন ইমেইল করুন: support@example.com');
+    }
+
+    /* Referral System Functions */
+    let userData = null;
+
+    function getReferralCode() {
+        const params = new URLSearchParams(window.location.search);
+        return params.get('ref');
+    }
+
+    function creditReferralIfAny() {
+        const refCode = getReferralCode();
+        if (refCode) {
+            const referrerData = JSON.parse(localStorage.getItem(`user_${refCode}`));
+            if (referrerData) {
+                referrerData.balance = (referrerData.balance || 0) + 20;
+                localStorage.setItem(`user_${refCode}`, JSON.stringify(referrerData));
+                showToast('রেফারেল সফল! রেফারারকে ২০ টাকা ক্রেডিট দেওয়া হয়েছে।');
+            }
+        }
+    }
+
+    function generateReferralCode() {
+        return Math.random().toString(36).substring(2, 10).toUpperCase();
+    }
+
+    function initReferral() {
+        const storedUser = localStorage.getItem('currentUser');
+        if (storedUser) {
+            userData = JSON.parse(storedUser);
+            elements.referralLoginForm.style.display = 'none';
+            elements.referralContent.style.display = 'block';
+            updateReferralUI();
+        } else {
+            elements.referralLoginForm.style.display = 'block';
+            elements.referralContent.style.display = 'none';
+        }
+
+        // Handle login/register
+        document.getElementById('referral-login').addEventListener('click', () => {
+            const name = document.getElementById('user-name').value.trim();
+            const bkash = document.getElementById('user-bkash').value.trim();
+            if (name && bkash) {
+                const code = generateReferralCode();
+                userData = { name, bkash, code, balance: 0 };
+                localStorage.setItem('currentUser', JSON.stringify(userData));
+                localStorage.setItem(`user_${code}`, JSON.stringify(userData));
+                updateReferralUI();
+                elements.referralLoginForm.style.display = 'none';
+                elements.referralContent.style.display = 'block';
+                showToast('রেজিস্টার সফল! আপনার রেফারেল লিংক তৈরি হয়েছে।');
+            } else {
+                showToast('সব ফিল্ড পূরণ করুন!');
+            }
+        });
+    }
+
+    function updateReferralUI() {
+        const baseUrl = window.location.origin + window.location.pathname;
+        elements.referralLink.textContent = `${baseUrl}?ref=${userData.code}`;
+        elements.referralBalance.textContent = userData.balance || 0;
+        elements.withdrawBtn.disabled = (userData.balance || 0) < 20;
+    }
+
+    function copyReferralLink() {
+        navigator.clipboard.writeText(elements.referralLink.textContent).then(() => showToast('রেফারেল লিংক কপি হয়েছে!'));
+    }
+
+    function withdrawBalance() {
+        if (userData.balance >= 20) {
+            showToast(`উইথড্র রিকোয়েস্ট পাঠানো হয়েছে! বিকাশ নম্বর: ${userData.bkash} এ ${userData.balance} টাকা পাঠানো হবে।`);
+            userData.balance = 0;
+            localStorage.setItem('currentUser', JSON.stringify(userData));
+            localStorage.setItem(`user_${userData.code}`, JSON.stringify(userData));
+            updateReferralUI();
+        }
+    }
+
+    window.onload = () => {
+        startMemberCounter();
+        showNextTestimonial();
+        setInterval(showNextTestimonial, 5000);
+        const headlineEl = document.getElementById('headline');
+        const headlineText = headlineEl.textContent; 
+        typeWriter(headlineEl, headlineText.trim(), 80);
+        startCountdown();
+        updateSlotsCounter();
+        showLiveActivity();
+        startContentCounter();
+        initReferral();
+    };
+  </script>
+</body>
+</html>
